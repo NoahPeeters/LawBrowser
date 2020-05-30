@@ -54,10 +54,13 @@ public class CrawlerClient {
 
         return SignalProducer { observer, _ in
             do {
-                _ = try archive.extract(entry) { data in
-                    observer.send(value: data)
-                    observer.sendCompleted()
+                var uncompressedData = Data(capacity: entry.uncompressedSize)
+                _ = try archive.extract(entry) { chunk in
+                    uncompressedData += chunk
                 }
+
+                observer.send(value: uncompressedData)
+                observer.sendCompleted()
             } catch {
                 observer.send(error: error)
             }
