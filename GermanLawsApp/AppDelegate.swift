@@ -8,30 +8,28 @@
 
 import UIKit
 import GermanLaws
-import GermanLawsApi
-import Combine
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var cancellables: [AnyCancellable] = []
+//    var cancellables: [AnyCancellable] = []
 
-    let api = APIClient()
+//    let api = APIClient()
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 
-        api.lawList()
-            .flatMap {
-                self.api.lawBook(for: $0.first!)
-            }
-            .sink(receiveCompletion: {
-                print($0)
-            }, receiveValue: {
-                print($0)
-            })
-            .store(in: &cancellables)
+//        api.lawList()
+//            .flatMap {
+//                self.api.lawBook(for: $0.first!)
+//            }
+//            .sink(receiveCompletion: {
+//                print($0)
+//            }, receiveValue: {
+//                print($0)
+//            })
+//            .store(in: &cancellables)
         return true
     }
 

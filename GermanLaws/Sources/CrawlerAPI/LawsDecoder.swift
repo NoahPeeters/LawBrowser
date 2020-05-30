@@ -7,9 +7,8 @@
 
 import Foundation
 import XMLCoder
-import Combine
 
-public class LawsDecoder: TopLevelDecoder {
+public class LawsDecoder {
     public let xmlDecoder: XMLDecoder = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyyMMddHHmmss"
@@ -28,3 +27,8 @@ public class LawsDecoder: TopLevelDecoder {
 
     public init() {}
 }
+
+#if canImport(Combine)
+import Combine
+extension LawsDecoder: TopLevelDecoder {}
+#endif

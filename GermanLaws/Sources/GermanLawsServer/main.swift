@@ -1,10 +1,24 @@
 //
-//  File.swift
+//  main.swift
 //  
 //
 //  Created by Noah Peeters on 30.05.20.
 //
 
 import Foundation
+import CrawlerAPI
 
-print("Hello World")
+let crawler = CrawlerClient()
+
+let cancellable = crawler.lawList()
+    .startWithResult {
+        switch $0 {
+        case let .failure(error):
+            print(error)
+        case let .success(listItems):
+            print(listItems.count)
+        }
+        exit(0)
+    }
+
+RunLoop.current.run()

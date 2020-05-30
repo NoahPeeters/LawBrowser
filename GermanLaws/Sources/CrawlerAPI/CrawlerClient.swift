@@ -1,12 +1,15 @@
 //
-//  APIClient.swift
+//  CrawlerClient.swift
 //  
 //
 //  Created by Noah Peeters on 30.05.20.
 //
 
 import Foundation
-import Combine
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
+import ReactiveSwift
 import GermanLaws
 import ZIPFoundation
 
@@ -15,7 +18,7 @@ enum APIClientError: Error {
     case zipFileDoesNotContainXMLFile
 }
 
-public class APIClient {
+public class CrawlerClient {
     private static let lawListURL = URL(string: "https://www.gesetze-im-internet.de/gii-toc.xml")!
     private static let lawListDecoder = LawListDecoder()
     private static let lawDecoder = LawsDecoder()
@@ -40,40 +43,42 @@ public class APIClient {
         return URLRequest(url: updatedURL)
     }
 
-    private func unzipXMLFile(data: Data) -> AnyPublisher<Data, Error> {
+    private func unzipXMLFile(data: Data) -> SignalProducer<Data, Error> {
         guard let archive = Archive(data: data, accessMode: .read, preferredEncoding: .utf8) else {
-            return Fail(error: APIClientError.failedToReadZIPArchive).eraseToAnyPublisher()
+            return SignalProducer(error: APIClientError.failedToReadZIPArchive)
         }
 
         guard let entry = archive.first(where: { $0.path.hasSuffix(".xml") }) else {
-            return Fail(error: APIClientError.zipFileDoesNotContainXMLFile).eraseToAnyPublisher()
+            return SignalProducer(error: APIClientError.zipFileDoesNotContainXMLFile)
         }
 
-        return Future { promise in
+        return SignalProducer { observer, _ in
             do {
                 _ = try archive.extract(entry) { data in
-                    promise(.success(data))
+                    observer.send(value: data)
+                    observer.sendCompleted()
                 }
             } catch {
-                promise(.failure(error))
+                observer.send(error: error)
             }
-        }.eraseToAnyPublisher()
+        }
     }
 
-    public func lawList() -> AnyPublisher<[LawListItem], Error> {
-        urlSession.dataTaskPublisher(for: urlRequest(for: APIClient.lawListURL))
-            .map(\.data)
-            .decode(type: LawList.self, decoder: APIClient.lawListDecoder)
+    public func lawList() -> SignalProducer<[LawListItem], Error> {
+        urlSession.reactive.data(with: urlRequest(for: CrawlerClient.lawListURL))
+            .map(\.0)
+            .attemptMap { data in
+                try CrawlerClient.lawListDecoder.decode(LawList.self, from: data)
+            }
             .map(\.items)
-            .eraseToAnyPublisher()
     }
 
-    public func lawBook(for lawListItem: LawListItem) -> AnyPublisher<LawBook, Error> {
-        urlSession.dataTaskPublisher(for: urlRequest(for: lawListItem.url))
-            .map(\.data)
-            .mapError { $0 }
-            .flatMap { self.unzipXMLFile(data: $0) }
-            .decode(type: LawBook.self, decoder: APIClient.lawDecoder)
-            .eraseToAnyPublisher()
+    public func lawBook(for lawListItem: LawListItem) -> SignalProducer<LawBook, Error> {
+        urlSession.reactive.data(with: urlRequest(for: lawListItem.url))
+            .map(\.0)
+            .flatMap(.concat, unzipXMLFile(data:))
+            .attemptMap { data in
+                try CrawlerClient.lawDecoder.decode(LawBook.self, from: data)
+            }
     }
 }

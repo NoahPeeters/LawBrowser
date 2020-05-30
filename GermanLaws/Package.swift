@@ -10,23 +10,27 @@ let package = Package(
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
         .library(
             name: "GermanLaws",
-            targets: ["GermanLaws", "GermanLawsApi"]),
+            targets: ["GermanLaws"]),
         .executable(name: "GermanLawsServer", targets: ["GermanLawsServer"])
     ],
     dependencies: [
         .package(url: "https://github.com/MaxDesiatov/XMLCoder.git", from: "0.11.1"),
-        .package(url: "https://github.com/weichsel/ZIPFoundation.git", from: "0.9.11")
+        .package(url: "https://github.com/weichsel/ZIPFoundation.git", from: "0.9.11"),
+        .package(url: "https://github.com/ReactiveCocoa/ReactiveSwift.git", from: "6.1.0")
     ],
     targets: [
         .target(
             name: "GermanLawsServer",
-            dependencies: []),
+            dependencies: ["CrawlerAPI"]),
         .target(
             name: "GermanLaws",
             dependencies: []),
         .target(
-            name: "GermanLawsApi",
-            dependencies: ["GermanLaws", "XMLCoder", "ZIPFoundation"]),
+            name: "CrawlerAPI",
+            dependencies: ["GermanLaws",
+                           "XMLCoder",
+                           "ZIPFoundation",
+                           "ReactiveSwift"]),
         .testTarget(
             name: "GermanLawsTests",
             dependencies: ["GermanLaws"])

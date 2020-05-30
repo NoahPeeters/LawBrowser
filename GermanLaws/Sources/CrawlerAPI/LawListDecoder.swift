@@ -6,10 +6,9 @@
 //
 
 import Foundation
-import Combine
 import XMLCoder
 
-public class LawListDecoder: TopLevelDecoder {
+public class LawListDecoder {
     public let xmlDecoder = XMLDecoder(trimValueWhitespaces: true)
 
     public typealias Input = Data
@@ -20,3 +19,8 @@ public class LawListDecoder: TopLevelDecoder {
 
     public init() {}
 }
+
+#if canImport(Combine)
+import Combine
+extension LawListDecoder: TopLevelDecoder {}
+#endif
