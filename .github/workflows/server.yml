@@ -1,0 +1,21 @@
+name: server
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: YOCKOW/Action-setup-swift@master
+        with:
+          swift-version: '5.2.4'
+      - name: build
+        run: |
+          cd GermanLaws
+          swift build --product GermanLawsServer
