@@ -12,12 +12,14 @@ public struct LawBook: Codable {
     }
 }
 
-public struct Law: Codable {
-    public struct Metadata: Codable {
-        let juridicalAbbreviation: String
+public struct LawMetadata: Codable {
+    let juridicalAbbreviation: String
 
-        public enum CodingKeys: String, CodingKey {
-            case juridicalAbbreviation = "jurabk"
-        }
+    public enum CodingKeys: String, CodingKey {
+        case juridicalAbbreviation = "jurabk"
     }
+}
+
+public struct Law: Codable {
+
 }

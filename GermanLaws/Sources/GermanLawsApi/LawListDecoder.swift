@@ -14,7 +14,7 @@ public class LawListDecoder: TopLevelDecoder {
 
     public typealias Input = Data
 
-    public func decode<T>(_ type: T.Type, from data: Data) throws -> T where T : Decodable {
+    public func decode<T>(_ type: T.Type, from data: Data) throws -> T where T: Decodable {
         try xmlDecoder.decode(type, from: data)
     }
 
