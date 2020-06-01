@@ -14,6 +14,9 @@
 		407237712482DCB900D327B1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 407237702482DCB900D327B1 /* Preview Assets.xcassets */; };
 		407237742482DCB900D327B1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 407237722482DCB900D327B1 /* LaunchScreen.storyboard */; };
 		407237812482DD2A00D327B1 /* GermanLaws in Frameworks */ = {isa = PBXBuildFile; productRef = 407237802482DD2A00D327B1 /* GermanLaws */; };
+		40A350852483CBF700CFB529 /* LawTextView in Frameworks */ = {isa = PBXBuildFile; productRef = 40A350842483CBF700CFB529 /* LawTextView */; };
+		40A3508724845D4F00CFB529 /* LawBookList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A3508624845D4F00CFB529 /* LawBookList.swift */; };
+		40A350892484620700CFB529 /* LawBookSectionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A350882484620700CFB529 /* LawBookSectionList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +30,8 @@
 		407237752482DCB900D327B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4072377B2482DCD300D327B1 /* GermanLawsApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GermanLawsApp.entitlements; sourceTree = "<group>"; };
 		4072377C2482DCFA00D327B1 /* GermanLaws */ = {isa = PBXFileReference; lastKnownFileType = folder; path = GermanLaws; sourceTree = "<group>"; };
+		40A3508624845D4F00CFB529 /* LawBookList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LawBookList.swift; sourceTree = "<group>"; };
+		40A350882484620700CFB529 /* LawBookSectionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LawBookSectionList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +40,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				407237812482DD2A00D327B1 /* GermanLaws in Frameworks */,
+				40A350852483CBF700CFB529 /* LawTextView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +72,8 @@
 				407237672482DCB900D327B1 /* AppDelegate.swift */,
 				407237692482DCB900D327B1 /* SceneDelegate.swift */,
 				4072376B2482DCB900D327B1 /* ContentView.swift */,
+				40A3508624845D4F00CFB529 /* LawBookList.swift */,
+				40A350882484620700CFB529 /* LawBookSectionList.swift */,
 				4072376D2482DCB900D327B1 /* Assets.xcassets */,
 				407237722482DCB900D327B1 /* LaunchScreen.storyboard */,
 				407237752482DCB900D327B1 /* Info.plist */,
@@ -104,11 +112,13 @@
 			buildRules = (
 			);
 			dependencies = (
+				40A350832483CBF100CFB529 /* PBXTargetDependency */,
 				4072377E2482DD2100D327B1 /* PBXTargetDependency */,
 			);
 			name = GermanLawsApp;
 			packageProductDependencies = (
 				407237802482DD2A00D327B1 /* GermanLaws */,
+				40A350842483CBF700CFB529 /* LawTextView */,
 			);
 			productName = GermanLawsApp;
 			productReference = 407237642482DCB900D327B1 /* GermanLawsApp.app */;
@@ -189,6 +199,8 @@
 				407237682482DCB900D327B1 /* AppDelegate.swift in Sources */,
 				4072376A2482DCB900D327B1 /* SceneDelegate.swift in Sources */,
 				4072376C2482DCB900D327B1 /* ContentView.swift in Sources */,
+				40A3508724845D4F00CFB529 /* LawBookList.swift in Sources */,
+				40A350892484620700CFB529 /* LawBookSectionList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,6 +210,10 @@
 		4072377E2482DD2100D327B1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			productRef = 4072377D2482DD2100D327B1 /* GermanLaws */;
+		};
+		40A350832483CBF100CFB529 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 40A350822483CBF100CFB529 /* LawTextView */;
 		};
 /* End PBXTargetDependency section */
 
@@ -404,6 +420,14 @@
 		407237802482DD2A00D327B1 /* GermanLaws */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = GermanLaws;
+		};
+		40A350822483CBF100CFB529 /* LawTextView */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = LawTextView;
+		};
+		40A350842483CBF700CFB529 /* LawTextView */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = LawTextView;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

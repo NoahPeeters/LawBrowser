@@ -10,7 +10,10 @@ let package = Package(
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
         .library(
             name: "GermanLaws",
-            targets: ["GermanLaws"]),
+            targets: ["GermanLaws", "ReactiveCombine", "CrawlerAPI"]),
+        .library(
+            name: "LawTextView",
+            targets: ["LawTextView"]),
         .executable(name: "GermanLawsServer", targets: ["GermanLawsServer"])
     ],
     dependencies: [
@@ -20,11 +23,17 @@ let package = Package(
     ],
     targets: [
         .target(
+            name: "ReactiveCombine",
+            dependencies: ["ReactiveSwift"]),
+        .target(
             name: "GermanLawsServer",
             dependencies: ["CrawlerAPI"]),
         .target(
             name: "GermanLaws",
             dependencies: []),
+        .target(
+            name: "LawTextView",
+            dependencies: ["GermanLaws"]),
         .target(
             name: "CrawlerAPI",
             dependencies: ["GermanLaws",

@@ -81,7 +81,7 @@ public class CrawlerClient {
             .map(\.0)
             .flatMap(.concat, unzipXMLFile(data:))
             .attemptMap { data in
-                try CrawlerClient.lawDecoder.decode(LawBook.self, from: data)
+                try CrawlerClient.lawDecoder.decode(from: data)
             }
     }
 }
