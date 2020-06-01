@@ -1,0 +1,13 @@
+disabled_rules:
+  - nesting
+
+opt_in_rules: # opt-in rules
+  - empty_count
+  - force_unwrapping
+
+identifier_name:
+  min_length:
+    error: 3
+  excluded:
+    - id
+    - url

@@ -12,6 +12,7 @@ public enum LawsDecoderError: Error {
     case parsingFailed
 }
 
+//swiftlint:disable type_body_length
 public class LawsDecoder {
     private static let dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -41,6 +42,7 @@ public class LawsDecoder {
 
     public init() {}
 
+    //swiftlint:disable type_body_length
     private class ParserDelegate: NSObject, XMLParserDelegate {
         let listBaseTabWidth = 100
         let listLevelTabWidth = 500
@@ -200,7 +202,12 @@ public class LawsDecoder {
             }
         }
 
-        func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
+        // swiftlint:disable:next cyclomatic_complexity function_body_length
+        func parser(_ parser: XMLParser,
+                    didStartElement elementName: String,
+                    namespaceURI: String?,
+                    qualifiedName qName: String?,
+                    attributes attributeDict: [String: String] = [:]) {
             let name = elementName.lowercased()
 
             switch (state, name) {
@@ -256,7 +263,11 @@ public class LawsDecoder {
             }
         }
 
-        func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+        // swiftlint:disable:next cyclomatic_complexity function_body_length
+        func parser(_ parser: XMLParser,
+                    didEndElement elementName: String,
+                    namespaceURI: String?,
+                    qualifiedName qName: String?) {
             let name = elementName.lowercased()
 
             switch (state, name) {
@@ -341,61 +352,4 @@ private class MutableLawBookSection {
             laws: laws,
             subsections: subsections)
     }
-}
-
-public struct LawBook {
-    public let documentIdentifier: String
-    public let date: Date
-    public let metadata: [String: String]
-    public let sections: [LawBookSection]
-}
-
-public struct LawBookSection {
-    public let title: String
-    public let sectionNumber: SectionNumber
-    public let laws: [Law]
-    public let subsections: [LawBookSection]
-}
-
-public struct SectionNumber: CustomStringConvertible {
-    public let numbers: [Int]
-
-    public init(numbers: Int...) {
-        self.numbers = numbers
-    }
-
-    public init(string: String) {
-        var numbers: [Int] = []
-
-        var iterator = string.makeIterator()
-        while let number1 = iterator.next(),
-              let number2 = iterator.next(),
-              let _ = iterator.next(),
-              let number = Int("\(number1)\(number2)") {
-                numbers.append(number)
-        }
-
-        self.numbers = numbers
-    }
-
-    public var description: String {
-        numbers.map(String.init).joined(separator: ".")
-    }
-
-    public func isSubsection(of other: SectionNumber) -> Bool {
-        Array(numbers.prefix(other.numbers.count)) == other.numbers
-    }
-}
-
-public struct LawMetadata: Codable {
-    let juridicalAbbreviation: String
-
-    public enum CodingKeys: String, CodingKey {
-        case juridicalAbbreviation = "jurabk"
-    }
-}
-
-public struct Law {
-    public let metadata: [String: String]
-    public let text: String
 }

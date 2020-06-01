@@ -19,6 +19,7 @@ enum APIClientError: Error {
 }
 
 public class CrawlerClient {
+    //swiftlint:disable:next force_unwrapping
     private static let lawListURL = URL(string: "https://www.gesetze-im-internet.de/gii-toc.xml")!
     private static let lawListDecoder = LawListDecoder()
     private static let lawDecoder = LawsDecoder()
@@ -71,7 +72,7 @@ public class CrawlerClient {
         urlSession.reactive.data(with: urlRequest(for: CrawlerClient.lawListURL))
             .map(\.0)
             .attemptMap { data in
-                try CrawlerClient.lawListDecoder.decode(LawList.self, from: data)
+                try CrawlerClient.lawListDecoder.decode(from: data)
             }
             .map(\.items)
     }
