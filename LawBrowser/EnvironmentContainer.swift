@@ -16,7 +16,7 @@ class EnvironmentContainer {
     init() {
         // swiftlint:disable force_unwrapping
         let cacheURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
-        let baseURL = URL(string: "http://192.168.150.61:8000")!
+        let baseURL = URL(string: "https://noahpeeters.github.io/GermanLaws")!
         // swiftlint:enable force_unwrapping
 
         let cache = VersionedCache(baseURL: cacheURL)
