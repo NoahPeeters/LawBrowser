@@ -13,4 +13,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: build
-        run: xcodebuild build -scheme GermanLawsApp CODE_SIGNING_ALLOWED=NO
+        run: ls && xcodebuild build -scheme LawBrowser CODE_SIGNING_ALLOWED=NO

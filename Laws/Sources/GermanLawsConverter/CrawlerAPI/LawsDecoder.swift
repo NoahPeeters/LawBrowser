@@ -7,6 +7,9 @@
 
 import Foundation
 import LawModel
+#if canImport(FoundationXML)
+import FoundationXML
+#endif
 
 public enum LawsDecoderError: Error {
     case parsingFailed

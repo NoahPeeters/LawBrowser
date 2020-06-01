@@ -17,5 +17,5 @@ jobs:
           swift-version: '5.2.4'
       - name: build
         run: |
-          cd GermanLaws
-          swift build --product GermanLawsServer
+          cd Laws
+          swift build --product GermanLawsConverter
